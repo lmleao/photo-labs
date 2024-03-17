@@ -20,7 +20,7 @@ const PhotoListItem = ({ photoData, favouritePhotos, toggleFavourite }) => {
           alt="User"
         />
         <div className="photo-list__user-info">
-          <span>{photoData.user.username}</span>
+          <span>{photoData.user.name}</span>
           <div className="photo-list__user-location">
             <span>{photoData.location.city},</span>
             <span>{photoData.location.country}</span>
