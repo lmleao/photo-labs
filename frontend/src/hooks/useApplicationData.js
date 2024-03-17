@@ -1,48 +1,78 @@
-import { useState } from 'react';
+import { useReducer } from 'react';
 import photos from '../mocks/photos';
 import topics from '../mocks/topics';
 
-const useApplicationData = () => {
-  const [favouritePhotos, setFavouritePhotos] = useState([]);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedPhoto, setSelectedPhoto] = useState(null);
-  const [similarPhotos, setSimilarPhotos] = useState([]);
+// Define action types
+const TOGGLE_FAVOURITE = 'TOGGLE_FAVOURITE';
+const OPEN_MODAL = 'OPEN_MODAL';
+const CLOSE_MODAL = 'CLOSE_MODAL';
 
-  const toggleFavourite = (photoId) => {
-    setFavouritePhotos((prevFavouritePhotos) => {
-      if (prevFavouritePhotos.includes(photoId)) {
-        return prevFavouritePhotos.filter((id) => id !== photoId);
-      } else {
-        return [...prevFavouritePhotos, photoId];
-      }
+// Define initial state
+const initialState = {
+  favouritePhotos: [],
+  isModalOpen: false,
+  selectedPhoto: null,
+  similarPhotos: [],
+  photos,
+  topics,
+};
+
+// Define reducer function
+const reducer = (state, action) => {
+  switch (action.type) {
+    case TOGGLE_FAVOURITE:
+      return {
+        ...state,
+        favouritePhotos: action.payload.isFavorited
+          ? [...state.favouritePhotos, action.payload.photoId]
+          : state.favouritePhotos.filter(id => id !== action.payload.photoId),
+      };
+    case OPEN_MODAL:
+      return {
+        ...state,
+        selectedPhoto: action.payload.selectedPhoto,
+        similarPhotos: action.payload.similarPhotos,
+        isModalOpen: true,
+      };
+    case CLOSE_MODAL:
+      return {
+        ...state,
+        selectedPhoto: null,
+        similarPhotos: [],
+        isModalOpen: false,
+      };
+    default:
+      return state;
+  }
+};
+
+const useApplicationData = () => {
+  const [state, dispatch] = useReducer(reducer, initialState);
+
+  // Action creators
+  const toggleFavourite = (photoId, isFavorited) => {
+    dispatch({
+      type: TOGGLE_FAVOURITE,
+      payload: { photoId, isFavorited },
     });
   };
 
-  const openModal = (photoData) => {
-    setSelectedPhoto(photoData);
-    const similarPhotosArray = photoData.similar_photos ? Object.values(photoData.similar_photos) : [];
-    setSimilarPhotos(similarPhotosArray);
-    setIsModalOpen(true);
+  const openModal = (selectedPhoto, similarPhotos) => {
+    dispatch({
+      type: OPEN_MODAL,
+      payload: { selectedPhoto, similarPhotos },
+    });
   };
 
   const closeModal = () => {
-    setSelectedPhoto(null);
-    setSimilarPhotos([]);
-    setIsModalOpen(false);
+    dispatch({ type: CLOSE_MODAL });
   };
 
   return {
-    state: {
-      photos,
-      topics,
-      favouritePhotos,
-      isModalOpen,
-      selectedPhoto,
-      similarPhotos,
-    },
-    updateToFavPhotoIds: toggleFavourite,
-    setPhotoSelected: openModal,
-    onClosePhotoDetailsModal: closeModal,
+    state,
+    toggleFavourite,
+    openModal,
+    closeModal,
   };
 };
 
