@@ -10,7 +10,7 @@ const PhotoListItem = ({ photoData, favouritePhotos, toggleFavourite }) => {
     <div className="photo-list__item">
       <PhotoFavButton 
         isFavorited={favouritePhotos.includes(photoData.id)} 
-        toggleFavorite={() => toggleFavourite(photoData.id)} 
+        toggleFavourite={() => toggleFavourite(photoData.id)} 
       />
       <img className="photo-list__image" src={imageSource} alt="Photo" />
       <div className="photo-list__user-details">
