@@ -7,6 +7,16 @@ import topics from './mocks/topics';
 import './App.scss';
 
 const App = () => {
+  const [favouritePhotos, setFavouritePhotos] = useState([]);
+
+  const toggleFavourite = (photoId) => {
+    if (favouritePhotos.includes(photoId)) {
+      setFavouritePhotos(favouritePhotos.filter(id => id !== photoId));
+    } else {
+      setFavouritePhotos([...favouritePhotos, photoId]);
+    }
+  };
+
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedPhoto, setSelectedPhoto] = useState(null);
   const [similarPhotos, setSimilarPhotos] = useState([]);
@@ -26,8 +36,23 @@ const App = () => {
 
   return (
     <div className="app">
-      <HomeRoute photos={photos} topics={topics} openModal={openModal} />
-      {isModalOpen && <PhotoDetailsModal selectedPhoto={selectedPhoto} similarPhotos={similarPhotos} closeModal={closeModal} openModal={openModal} />}
+      <HomeRoute
+        photos={photos}
+        topics={topics}
+        openModal={openModal}
+        favouritePhotos={favouritePhotos}
+        toggleFavourite={toggleFavourite}
+      />
+      {isModalOpen && (
+        <PhotoDetailsModal
+          selectedPhoto={selectedPhoto}
+          similarPhotos={similarPhotos}
+          closeModal={closeModal}
+          favouritePhotos={favouritePhotos}
+          toggleFavourite={toggleFavourite}
+          openModal={openModal}
+        />
+      )}
     </div>
   );
 };
