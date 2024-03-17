@@ -1,7 +1,6 @@
 import React from 'react';
 
 import PhotoListItem from './components/PhotoListItem';
-import PhotoFavButton from './components/PhotoFavButton';
 import './App.scss';
 
 const sampleDataForPhotoListItem = {
@@ -25,7 +24,6 @@ const App = () => {
       {/* Map over the array of photos and render PhotoListItem component with sampleDataForPhotoListItem */}
       {photos.map((_, index) => (
         <div key={index}>
-          <PhotoFavButton /> {/* Render the PhotoFavButton component */}
           <PhotoListItem photoData={sampleDataForPhotoListItem} />
         </div>
       ))}
