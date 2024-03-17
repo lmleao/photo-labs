@@ -16,9 +16,15 @@ const sampleDataForPhotoListItem = {
 
 // Note: Rendering a single component to build components in isolation
 const App = () => {
+  // Create an array with three elements to repeat the sampleDataForPhotoListItem
+  const photos = Array.from({ length: 3 }, (_, index) => index);
+
   return (
-    <div className="App">
-      <PhotoListItem photoData={sampleDataForPhotoListItem} />
+    <div className="app">
+      {/* Map over the array of photos and render PhotoListItem component with sampleDataForPhotoListItem */}
+      {photos.map((_, index) => (
+        <PhotoListItem key={index} photoData={sampleDataForPhotoListItem} />
+      ))}
     </div>
   );
 };
