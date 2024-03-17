@@ -7,14 +7,12 @@ import '../styles/HomeRoute.scss';
 const HomeRoute = ({ photos, topics }) => {
   const [favoritePhotos, setFavoritePhotos] = useState([]);
 
-  const addFavoritePhoto = (photoId) => {
-    if (!favoritePhotos.includes(photoId)) {
+  const toggleFavourite = (photoId) => {
+    if (favoritePhotos.includes(photoId)) {
+      setFavoritePhotos(favoritePhotos.filter(id => id !== photoId));
+    } else {
       setFavoritePhotos([...favoritePhotos, photoId]);
     }
-  };
-
-  const removeFavoritePhoto = (photoId) => {
-    setFavoritePhotos(favoritePhotos.filter((id) => id !== photoId));
   };
 
   return (
@@ -22,9 +20,8 @@ const HomeRoute = ({ photos, topics }) => {
       <TopNavigation topics={topics} favoritePhotos={favoritePhotos} />
       <PhotoList 
         photos={photos} 
-        favoritePhotos={favoritePhotos}
-        onAddFavorite={addFavoritePhoto} 
-        onRemoveFavorite={removeFavoritePhoto} 
+        favoritePhotos={favoritePhotos} 
+        toggleFavourite={toggleFavourite} 
       />
     </div>
   );
