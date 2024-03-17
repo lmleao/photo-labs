@@ -5,7 +5,7 @@ import '../styles/PhotoDetailsModal.scss'
 import closeSymbol from '../assets/closeSymbol.svg';
 import PhotoFavButton from '../components/PhotoFavButton';
 
-const PhotoDetailsModal = ({ selectedPhoto, similarPhotos, closeModal, favouritePhotos = [], toggleFavourite }) => {
+const PhotoDetailsModal = ({ selectedPhoto, similarPhotos, closeModal, favouritePhotos = [], toggleFavourite, openModal }) => {
   const handleCloseClick = () => {
     closeModal();
   };
@@ -29,7 +29,7 @@ const PhotoDetailsModal = ({ selectedPhoto, similarPhotos, closeModal, favourite
         toggleFavourite={() => toggleFavourite(selectedPhoto.id)}
       />
       <div className="photo-details-modal__content">
-        <img className="photo-details-modal__image" src={urls.regular} alt="Photo" />
+        <img className="photo-details-modal__image" src={urls.full} alt="Photo" />
         <div className="photo-details-modal__info">
           <h2>{user.name}</h2>
           <p>Location: {location.city}, {location.country}</p>
@@ -37,20 +37,12 @@ const PhotoDetailsModal = ({ selectedPhoto, similarPhotos, closeModal, favourite
         {/* Similar photos */}
         <div className="photo-details-modal__similar-photos">
           <h3>Similar Photos</h3>
-          <div className="photo-details-modal__similar-photos">
-            <h3>Similar Photos</h3>
-              <div className="photo-details-modal__similar-photos-list">
-                {similarPhotos.map(photo => (
-                  <div key={photo.id} className="similar-photo-item">
-                    <PhotoFavButton
-                      isFavorited={favouritePhotos.includes(photo.id)}
-                      toggleFavourite={() => toggleFavourite(photo.id)}
-                    />
-                    <img src={photo.urls.regular} alt="Similar Photo" />
-                  </div>
-                ))}
-              </div>
-            </div>
+          <PhotoList
+            photos={similarPhotos}
+            favouritePhotos={favouritePhotos}
+            toggleFavourite={toggleFavourite}
+            openModal={openModal}
+          />
         </div>
       </div>
     </div>
