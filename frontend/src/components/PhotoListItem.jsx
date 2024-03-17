@@ -7,7 +7,7 @@ const PhotoListItem = ({ photoData, favouritePhotos, toggleFavourite, openModal 
   const imageSource = photoData.urls.regular;
 
   const handlePhotoClick = () => {
-    openModal();
+    openModal(photoData);
   };
 
   return (
