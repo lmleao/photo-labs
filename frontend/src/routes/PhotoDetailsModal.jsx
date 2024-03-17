@@ -31,8 +31,9 @@ const PhotoDetailsModal = ({ selectedPhoto, similarPhotos, closeModal, favourite
       <div className="photo-details-modal__content">
         <img className="photo-details-modal__image" src={urls.full} alt="Photo" />
         <div className="photo-details-modal__info">
+          <img className="photo-details-modal__photographer-profile" src={user.profile} alt="User Icon" />
           <h2>{user.name}</h2>
-          <p>Location: {location.city}, {location.country}</p>
+          <p>{location.city}, {location.country}</p>
         </div>
         {/* Similar photos */}
         <div className="photo-details-modal__similar-photos">
