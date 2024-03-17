@@ -8,7 +8,10 @@ const PhotoListItem = (props) => {
 
   return (
     <div className="photo-list__item">
-      <PhotoFavButton />
+      <PhotoFavButton 
+        isFavorited={props.favourites.includes(photoData.id)} 
+        onToggleFavorite={() => props.toggleFavourite(photoData.id)} 
+      />
       <img className="photo-list__image" src={photoData.imageSource} alt="Photo" />
       <div className="photo-list__user-details">
         <img
