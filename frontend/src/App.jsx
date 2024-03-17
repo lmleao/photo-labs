@@ -1,56 +1,37 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import HomeRoute from './routes/HomeRoute';
 import PhotoDetailsModal from './routes/PhotoDetailsModal';
-import photos from './mocks/photos';
-import topics from './mocks/topics';
+import useApplicationData from './hooks/useApplicationData';
 import './App.scss';
 
 const App = () => {
-  const [favouritePhotos, setFavouritePhotos] = useState([]);
+  const {
+    state,
+    updateToFavPhotoIds,
+    setPhotoSelected,
+    onClosePhotoDetailsModal,
+  } = useApplicationData();
 
-  const toggleFavourite = (photoId) => {
-    if (favouritePhotos.includes(photoId)) {
-      setFavouritePhotos(favouritePhotos.filter(id => id !== photoId));
-    } else {
-      setFavouritePhotos([...favouritePhotos, photoId]);
-    }
-  };
-
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedPhoto, setSelectedPhoto] = useState(null);
-  const [similarPhotos, setSimilarPhotos] = useState([]);
-
-  const openModal = (photoData) => {
-    setSelectedPhoto(photoData);
-    const similarPhotosArray = photoData.similar_photos ? Object.values(photoData.similar_photos) : [];
-    setSimilarPhotos(similarPhotosArray);
-    setIsModalOpen(true);
-  };
-
-  const closeModal = () => {
-    setSelectedPhoto(null);
-    setSimilarPhotos([]);
-    setIsModalOpen(false);
-  };
+  const { photos, topics, favouritePhotos, isModalOpen, selectedPhoto, similarPhotos } = state;
 
   return (
     <div className="app">
       <HomeRoute
         photos={photos}
         topics={topics}
-        openModal={openModal}
+        openModal={setPhotoSelected}
         favouritePhotos={favouritePhotos}
-        toggleFavourite={toggleFavourite}
+        toggleFavourite={updateToFavPhotoIds}
       />
       {isModalOpen && (
         <PhotoDetailsModal
           selectedPhoto={selectedPhoto}
           similarPhotos={similarPhotos}
-          closeModal={closeModal}
+          closeModal={onClosePhotoDetailsModal}
           favouritePhotos={favouritePhotos}
-          toggleFavourite={toggleFavourite}
-          openModal={openModal}
+          toggleFavourite={updateToFavPhotoIds}
+          openModal={setPhotoSelected}
         />
       )}
     </div>
