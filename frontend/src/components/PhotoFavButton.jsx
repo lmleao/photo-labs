@@ -3,10 +3,10 @@ import React, { useCallback } from 'react';
 import FavIcon from './FavIcon';
 import '../styles/PhotoFavButton.scss';
 
-function PhotoFavButton({ isFavorited, onToggleFavorite }) {
+function PhotoFavButton({ isFavorited, toggleFavourite }) {
   const handleIconClick = useCallback(() => {
-    onToggleFavorite();
-  }, [onToggleFavorite]);
+    toggleFavourite();
+  }, [toggleFavourite]);
 
   return (
     <div className="photo-list__fav-icon" onClick={handleIconClick}>

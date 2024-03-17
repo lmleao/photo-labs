@@ -5,22 +5,22 @@ import PhotoList from '../components/PhotoList';
 import '../styles/HomeRoute.scss';
 
 const HomeRoute = ({ photos, topics }) => {
-  const [favoritePhotos, setFavoritePhotos] = useState([]);
+  const [favouritePhotos, setFavouritePhotos] = useState([]);
 
   const toggleFavourite = (photoId) => {
-    if (favoritePhotos.includes(photoId)) {
-      setFavoritePhotos(favoritePhotos.filter(id => id !== photoId));
+    if (favouritePhotos.includes(photoId)) {
+      setFavouritePhotos(favouritePhotos.filter(id => id !== photoId));
     } else {
-      setFavoritePhotos([...favoritePhotos, photoId]);
+      setFavouritePhotos([...favouritePhotos, photoId]);
     }
   };
 
   return (
     <div className="home-route">
-      <TopNavigation topics={topics} favoritePhotos={favoritePhotos} />
+      <TopNavigation topics={topics} favouritePhotos={favouritePhotos} />
       <PhotoList 
         photos={photos} 
-        favoritePhotos={favoritePhotos} 
+        favouritePhotos={favouritePhotos} 
         toggleFavourite={toggleFavourite} 
       />
     </div>

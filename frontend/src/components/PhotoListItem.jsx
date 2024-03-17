@@ -3,24 +3,24 @@ import React from "react";
 import "../styles/PhotoListItem.scss";
 import PhotoFavButton from './PhotoFavButton';
 
-const PhotoListItem = (props) => {
-  const { photoData } = props;
+const PhotoListItem = ({ photoData, favouritePhotos, toggleFavourite }) => {
+  const imageSource = photoData.urls.regular;
 
   return (
     <div className="photo-list__item">
       <PhotoFavButton 
-        isFavorited={props.favourites.includes(photoData.id)} 
-        onToggleFavorite={() => props.toggleFavourite(photoData.id)} 
+        isFavorited={favouritePhotos.includes(photoData.id)} 
+        toggleFavorite={() => toggleFavourite(photoData.id)} 
       />
-      <img className="photo-list__image" src={photoData.imageSource} alt="Photo" />
+      <img className="photo-list__image" src={imageSource} alt="Photo" />
       <div className="photo-list__user-details">
         <img
           className="photo-list__user-profile"
-          src={photoData.profile}
+          src={photoData.user.profile}
           alt="User"
         />
         <div className="photo-list__user-info">
-          <span>{photoData.username}</span>
+          <span>{photoData.user.username}</span>
           <div className="photo-list__user-location">
             <span>{photoData.location.city},</span>
             <span>{photoData.location.country}</span>
