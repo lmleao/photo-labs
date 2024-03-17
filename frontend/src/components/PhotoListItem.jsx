@@ -3,8 +3,12 @@ import React from "react";
 import "../styles/PhotoListItem.scss";
 import PhotoFavButton from './PhotoFavButton';
 
-const PhotoListItem = ({ photoData, favouritePhotos, toggleFavourite }) => {
+const PhotoListItem = ({ photoData, favouritePhotos, toggleFavourite, openModal }) => {
   const imageSource = photoData.urls.regular;
+
+  const handlePhotoClick = () => {
+    openModal();
+  };
 
   return (
     <div className="photo-list__item">
@@ -12,7 +16,12 @@ const PhotoListItem = ({ photoData, favouritePhotos, toggleFavourite }) => {
         isFavorited={favouritePhotos.includes(photoData.id)} 
         toggleFavourite={() => toggleFavourite(photoData.id)} 
       />
-      <img className="photo-list__image" src={imageSource} alt="Photo" />
+      <img
+        className="photo-list__image"
+        src={imageSource}
+        alt="Photo"
+        onClick={handlePhotoClick}
+      />
       <div className="photo-list__user-details">
         <img
           className="photo-list__user-profile"
