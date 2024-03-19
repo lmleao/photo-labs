@@ -51,10 +51,13 @@ const useApplicationData = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   // Action creators
-  const toggleFavourite = (photoId, isFavorited) => {
+  const toggleFavourite = (photoId) => {
+    // Check if the photo is already favorited
+    const isFavorited = state.favouritePhotos.includes(photoId);
+    
     dispatch({
       type: TOGGLE_FAVOURITE,
-      payload: { photoId, isFavorited },
+      payload: { photoId, isFavorited: !isFavorited },
     });
   };
 
