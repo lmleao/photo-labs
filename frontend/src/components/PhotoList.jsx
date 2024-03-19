@@ -5,6 +5,10 @@ import "../styles/PhotoList.scss";
 
 
 const PhotoList = ({ photos, favouritePhotos, toggleFavourite, openModal }) => {
+  if (!photos || photos.length === 0) {
+    return <div>No photos available.</div>;
+  }
+
   return (
     <ul className="photo-list">
       {photos.map(photoData => (

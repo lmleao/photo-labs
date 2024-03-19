@@ -16,8 +16,6 @@ const PhotoDetailsModal = ({ selectedPhoto, similarPhotos, closeModal, favourite
 
   const { urls, user, location } = selectedPhoto;
 
-  console.log(selectedPhoto);
-
   return (
     <div className="photo-details-modal">
       <button className="photo-details-modal__close-button" onClick={handleCloseClick}>

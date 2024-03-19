@@ -15,6 +15,7 @@ const initialState = {
   similarPhotos: [],
   photos,
   topics,
+  similarPhotosMap: {},
 };
 
 // Define reducer function
@@ -42,8 +43,8 @@ const reducer = (state, action) => {
         isModalOpen: false,
       };
     default:
-      return state;
-  }
+      throw new Error(`Unsupported action type: ${action.type}`);
+    }
 };
 
 const useApplicationData = () => {
@@ -57,10 +58,13 @@ const useApplicationData = () => {
     });
   };
 
-  const openModal = (selectedPhoto, similarPhotos) => {
+  const openModal = (selectedPhotoId) => {
+    const selectedPhoto = state.photos.find(photo => photo.id === selectedPhotoId);
+    const similarPhotosArray = selectedPhoto && selectedPhoto.similar_photos ? Object.values(selectedPhoto.similar_photos) : [];
+    
     dispatch({
       type: OPEN_MODAL,
-      payload: { selectedPhoto, similarPhotos },
+      payload: { selectedPhoto, similarPhotos: similarPhotosArray },
     });
   };
 
