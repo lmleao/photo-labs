@@ -1,6 +1,4 @@
 import { useReducer, useEffect } from 'react';
-import photos from '../mocks/photos';
-import topics from '../mocks/topics';
 
 // Define action types
 const TOGGLE_FAVOURITE = 'TOGGLE_FAVOURITE';
@@ -13,9 +11,8 @@ const initialState = {
   isModalOpen: false,
   selectedPhoto: null,
   similarPhotos: [],
-  photos,
-  topics,
-  similarPhotosMap: {},
+  photoData: [],
+  topicData: []
 };
 
 // Define reducer function
@@ -42,6 +39,11 @@ const reducer = (state, action) => {
         similarPhotos: [],
         isModalOpen: false,
       };
+    case SET_PHOTO_DATA:
+      return {
+        ...state,
+        photoData: action.payload
+      };
     default:
       throw new Error(`Unsupported action type: ${action.type}`);
     }
@@ -49,6 +51,21 @@ const reducer = (state, action) => {
 
 const useApplicationData = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch('/api/photos');
+        const data = await response.json();
+        dispatch({ type: SET_PHOTO_DATA, payload: data });
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+
+    fetchData(); // Call the fetchData function when the component mounts
+
+  }, []);
 
   // Action creators
   const toggleFavourite = (photoId) => {
