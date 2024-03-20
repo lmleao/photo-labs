@@ -4,6 +4,8 @@ import { useReducer, useEffect } from 'react';
 const TOGGLE_FAVOURITE = 'TOGGLE_FAVOURITE';
 const OPEN_MODAL = 'OPEN_MODAL';
 const CLOSE_MODAL = 'CLOSE_MODAL';
+const SET_PHOTO_DATA = 'SET_PHOTO_DATA';
+const SET_TOPIC_DATA = 'SET_TOPIC_DATA';
 
 // Define initial state
 const initialState = {
