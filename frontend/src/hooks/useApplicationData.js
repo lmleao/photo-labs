@@ -46,6 +46,11 @@ const reducer = (state, action) => {
         ...state,
         photoData: action.payload
       };
+    case SET_TOPIC_DATA:
+      return {
+        ...state,
+        topicData: action.payload,
+      };
     default:
       throw new Error(`Unsupported action type: ${action.type}`);
     }
