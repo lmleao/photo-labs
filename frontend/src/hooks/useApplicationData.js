@@ -80,6 +80,18 @@ const useApplicationData = () => {
     });
   };
 
+  const fetchPhotosByTopic = (topicId) => {
+    fetch(`http://localhost:8001/api/topics/photos/${topicId}`)
+      .then((response) => response.json())
+      .then((data) => {
+        dispatch({ type: SET_PHOTO_DATA, payload: data });
+      })
+      .catch((error) => {
+        console.error('Error fetching photos by topic:', error);
+      });
+  };
+
+
   const openModal = (selectedPhotoId) => {
     const selectedPhoto = state.photos.find(photo => photo.id === selectedPhotoId);
     const similarPhotosArray = selectedPhoto && selectedPhoto.similar_photos ? Object.values(selectedPhoto.similar_photos) : [];
@@ -97,6 +109,7 @@ const useApplicationData = () => {
   return {
     state,
     toggleFavourite,
+    fetchPhotosByTopic,
     openModal,
     closeModal,
   };
