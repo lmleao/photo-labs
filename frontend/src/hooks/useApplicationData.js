@@ -1,4 +1,4 @@
-import { useReducer } from 'react';
+import { useReducer, useEffect } from 'react';
 import photos from '../mocks/photos';
 import topics from '../mocks/topics';
 
