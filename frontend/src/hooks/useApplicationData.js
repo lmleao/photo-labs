@@ -53,18 +53,13 @@ const useApplicationData = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch('/api/photos');
-        const data = await response.json();
-        dispatch({ type: SET_PHOTO_DATA, payload: data });
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      }
-    };
+    fetch("/api/photos")
+      .then(response => response.json())
+      .then(data => dispatch({ type: SET_PHOTO_DATA, payload: data }));
 
-    fetchData(); // Call the fetchData function when the component mounts
-
+    fetch("/api/topics")
+      .then(response => response.json())
+      .then(data => dispatch({ type: SET_TOPIC_DATA, payload: data }));
   }, []);
 
   // Action creators
