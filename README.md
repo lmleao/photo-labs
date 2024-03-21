@@ -3,6 +3,8 @@ The PhotoLabs project for the Web Development React course programming.
 
 # Photolabs
 
+!["Screenshot of the main page of PhotoLabs"](https://github.com/lmleao/photo-labs/blob/main/docs/photolabs.png?raw=true)
+
 ## Setup
 
 Install dependencies with `npm install` in each respective `/frontend` and `/backend`.
