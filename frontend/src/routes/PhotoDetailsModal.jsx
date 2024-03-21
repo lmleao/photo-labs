@@ -37,7 +37,7 @@ const PhotoDetailsModal = ({ selectedPhoto, similarPhotos, closeModal, favourite
         <div className="photo-details-modal__similar-photos">
           <h3>Similar Photos</h3>
           <PhotoList
-            photos={similarPhotos}
+            photoData={similarPhotos}
             favouritePhotos={favouritePhotos}
             toggleFavourite={toggleFavourite}
             openModal={openModal}

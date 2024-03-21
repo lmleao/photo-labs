@@ -60,13 +60,31 @@ const useApplicationData = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   useEffect(() => {
-    fetch("/api/photos")
-      .then(response => response.json())
-      .then(data => dispatch({ type: SET_PHOTO_DATA, payload: data }));
-
-    fetch("/api/topics")
-      .then(response => response.json())
-      .then(data => dispatch({ type: SET_TOPIC_DATA, payload: data }));
+    const fetchData = async () => {
+      try {
+        const photosResponse = await fetch("/api/photos");
+        if (!photosResponse.ok) {
+          throw new Error('Network response was not ok');
+        }
+        const photosData = await photosResponse.json();
+        dispatch({ type: SET_PHOTO_DATA, payload: photosData });
+      } catch (error) {
+        console.error('Error fetching photos:', error);
+      }
+  
+      try {
+        const topicsResponse = await fetch("/api/topics");
+        if (!topicsResponse.ok) {
+          throw new Error('Network response was not ok');
+        }
+        const topicsData = await topicsResponse.json();
+        dispatch({ type: SET_TOPIC_DATA, payload: topicsData });
+      } catch (error) {
+        console.error('Error fetching topics:', error);
+      }
+    };
+  
+    fetchData();
   }, []);
 
   // Action creators
@@ -93,7 +111,7 @@ const useApplicationData = () => {
 
 
   const openModal = (selectedPhotoId) => {
-    const selectedPhoto = state.photos.find(photo => photo.id === selectedPhotoId);
+    const selectedPhoto = state.photoData.find(photo => photo.id === selectedPhotoId);
     const similarPhotosArray = selectedPhoto && selectedPhoto.similar_photos ? Object.values(selectedPhoto.similar_photos) : [];
     
     dispatch({

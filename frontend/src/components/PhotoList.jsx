@@ -4,14 +4,14 @@ import PhotoListItem from "./PhotoListItem";
 import "../styles/PhotoList.scss";
 
 
-const PhotoList = ({ photos, favouritePhotos, toggleFavourite, openModal }) => {
-  if (!photos || photos.length === 0) {
+const PhotoList = ({ photoData, favouritePhotos, toggleFavourite, openModal }) => {
+  if (!photoData || photoData.length === 0) {
     return <div>No photos available.</div>;
   }
 
   return (
     <ul className="photo-list">
-      {photos.map(photoData => (
+      {photoData.map(photoData => (
         <li key={photoData.id}>
           <PhotoListItem
             photoData={photoData}
